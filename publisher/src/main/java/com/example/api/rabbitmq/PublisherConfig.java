@@ -9,9 +9,10 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 
-
+@Configuration
 public class PublisherConfig {
     private static final String EXCHANGE_NAME = "sample.exchange";
     private static final String QUEUE_NAME = "sample.queue";
@@ -32,7 +33,7 @@ public class PublisherConfig {
     }
 
     @Bean
-    RabbitTemplate rabbitTemplate(ConnectionFactory factory, MessageConverter converter){
+    RabbitTemplate rabbitTemplate(ConnectionFactory factory){
         RabbitTemplate template = new RabbitTemplate(factory);
         template.setMessageConverter(new Jackson2JsonMessageConverter()); // json으로 바꿈
         return template;
